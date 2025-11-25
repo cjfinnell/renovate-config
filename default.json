@@ -1,92 +1,55 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base",
-    "schedule:earlyMondays"
+  "extends": ["config:base", "schedule:earlyMondays"],
+  "hostRules": [
+    {
+      "matchHost": "harbor.cfin.dev",
+      "username": "{{ secrets.MEND_HARBOR_USER }}",
+      "password": "{{ secrets.MEND_HARBOR_PASS }}"
+    }
   ],
   "packageRules": [
     {
-      "matchManagers": [
-        "npm"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "digest"
-      ],
-      "matchDepTypes": [
-        "require"
-      ],
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "matchDepTypes": ["require"],
       "groupName": "all non-major npm dependencies",
       "groupSlug": "all-minor-patch-npm"
     },
     {
-      "matchManagers": [
-        "gomod"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "digest"
-      ],
-      "matchDepTypes": [
-        "require"
-      ],
+      "matchManagers": ["gomod"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "matchDepTypes": ["require"],
       "groupName": "all non-major Go dependencies",
       "groupSlug": "all-minor-patch-go",
-      "excludePackageNames": [
-        "github.com/golangci/golangci-lint"
-      ]
+      "excludePackageNames": ["github.com/golangci/golangci-lint"]
     },
     {
-      "matchManagers": [
-        "gomod"
-      ],
-      "matchDepTypes": [
-        "golang"
-      ],
+      "matchManagers": ["gomod"],
+      "matchDepTypes": ["golang"],
       "groupName": "go version updates",
       "groupSlug": "go-version"
     },
     {
-      "matchManagers": [
-        "nodenv",
-        "nvm"
-      ],
+      "matchManagers": ["nodenv", "nvm"],
       "groupName": "node version updates",
       "groupSlug": "node-version"
     },
     {
-      "matchManagers": [
-        "github-actions",
-        "circleci"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
+      "matchManagers": ["github-actions", "circleci"],
+      "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all non-major CI dependencies",
       "groupSlug": "all-minor-patch-ci",
-      "excludePackageNames": [
-        "cimg/go"
-      ]
+      "excludePackageNames": ["cimg/go"]
     },
     {
-      "matchManagers": [
-        "git-submodules"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "digest"
-      ],
+      "matchManagers": ["git-submodules"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
       "groupName": "all non-major submodule dependencies",
       "groupSlug": "all-minor-patch-submodule"
     },
     {
-      "matchPackageNames": [
-        "hashicorp/terraform"
-      ],
+      "matchPackageNames": ["hashicorp/terraform"],
       "allowedVersions": "<=1.5.5"
     }
   ]
